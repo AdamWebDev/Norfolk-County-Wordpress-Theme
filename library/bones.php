@@ -39,8 +39,6 @@ function bones_ahoy() {
     // launching this stuff after theme setup
     bones_theme_support();
 
-    // adding sidebars to Wordpress (these are created in functions.php)
-    add_action( 'widgets_init', 'bones_register_sidebars' );
     // adding the bones search form (created in functions.php)
     add_filter( 'get_search_form', 'bones_wpsearch' );
 
@@ -189,29 +187,14 @@ function bones_theme_support() {
 
 	// to add header image support go here: http://themble.com/support/adding-header-background-image-support/
 
-	// adding post format support
-	add_theme_support( 'post-formats',
-		array(
-			'aside',             // title less blurb
-			'gallery',           // gallery of images
-			'link',              // quick link to other site
-			'image',             // an image
-			'quote',             // a quick quote
-			'status',            // a Facebook like status update
-			'video',             // video
-			'audio',             // audio
-			'chat'               // chat transcript
-		)
-	);
-
 	// wp menus
 	add_theme_support( 'menus' );
 
 	// registering wp3+ menus
 	register_nav_menus(
 		array(
-			'main-nav' => __( 'The Main Menu', 'bonestheme' ),   // main nav in header
-			'footer-links' => __( 'Footer Links', 'bonestheme' ) // secondary nav in footer
+			'main-cats' => __( 'The Main Categories', 'bonestheme' ),   // main nav in header
+			'top-menu' => __( 'The Top Menu', 'bonestheme' ) // secondary nav in footer
 		)
 	);
 } /* end bones theme support */
@@ -227,9 +210,9 @@ function bones_main_nav() {
     wp_nav_menu(array(
     	'container' => false,                           // remove nav container
     	'container_class' => 'menu clearfix',           // class of container (should you choose to use it)
-    	'menu' => __( 'The Main Menu', 'bonestheme' ),  // nav name
+    	'menu' => __( 'The Main Categories', 'bonestheme' ),  // nav name
     	'menu_class' => 'nav top-nav clearfix',         // adding custom nav class
-    	'theme_location' => 'main-nav',                 // where it's located in the theme
+    	'theme_location' => 'main-cats',                 // where it's located in the theme
     	'before' => '',                                 // before the menu
         'after' => '',                                  // after the menu
         'link_before' => '',                            // before each link
@@ -240,14 +223,14 @@ function bones_main_nav() {
 } /* end bones main nav */
 
 // the footer menu (should you choose to use one)
-function bones_footer_links() {
+function norfolk_top_menu() {
 	// display the wp3 menu if available
     wp_nav_menu(array(
     	'container' => '',                              // remove nav container
-    	'container_class' => 'footer-links clearfix',   // class of container (should you choose to use it)
-    	'menu' => __( 'Footer Links', 'bonestheme' ),   // nav name
-    	'menu_class' => 'nav footer-nav clearfix',      // adding custom nav class
-    	'theme_location' => 'footer-links',             // where it's located in the theme
+    	'container_class' => 'top-menu clearfix',   // class of container (should you choose to use it)
+    	'menu' => __( 'The Top Menu', 'bonestheme' ),   // nav name
+    	'menu_class' => 'nav top-nav clearfix',      // adding custom nav class
+    	'theme_location' => 'top-menu',             // where it's located in the theme
     	'before' => '',                                 // before the menu
         'after' => '',                                  // after the menu
         'link_before' => '',                            // before each link
@@ -275,34 +258,7 @@ function bones_footer_links_fallback() {
 	/* you can put a default here if you like */
 }
 
-/*********************
-RELATED POSTS FUNCTION
-*********************/
 
-// Related Posts Function (call using bones_related_posts(); )
-function bones_related_posts() {
-	echo '<ul id="bones-related-posts">';
-	global $post;
-	$tags = wp_get_post_tags($post->ID);
-	if($tags) {
-		foreach($tags as $tag) { $tag_arr .= $tag->slug . ','; }
-        $args = array(
-        	'tag' => $tag_arr,
-        	'numberposts' => 5, /* you can change this to show more */
-        	'post__not_in' => array($post->ID)
-     	);
-        $related_posts = get_posts($args);
-        if($related_posts) {
-        	foreach ($related_posts as $post) : setup_postdata($post); ?>
-	           	<li class="related_post"><a class="entry-unrelated" href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
-	        <?php endforeach; }
-	    else { ?>
-            <?php echo '<li class="no_related_post">' . __( 'No Related Posts Yet!', 'bonestheme' ) . '</li>'; ?>
-		<?php }
-	}
-	wp_reset_query();
-	echo '</ul>';
-} /* end bones related posts function */
 
 /*********************
 PAGE NAVI
@@ -397,5 +353,35 @@ function bones_get_the_author_posts_link() {
 	);
 	return $link;
 }
+
+/*********************
+AUTHOR FUNCTIONS
+*********************/
+
+// show front page content
+function front_page_boxes($post_type,$title,$rssname) {
+	$args = array( 'post_type' => $post_type,'posts_per_page' => 10);
+	query_posts($args);
+	$listing=''; $sticky='';
+    if(have_posts()): while ( have_posts() ) : the_post();
+		if(has_tag('sticky'))
+    		$sticky.='<li><a href="'. the_permalink() . '">'.the_title()."</a></li>\n";
+    	else
+    		$listing.="<li><a href=\"".get_permalink()."\">". get_the_title() ."</a></li>\n";
+	endwhile; else: 
+		echo "There are currently no " . $title .".";
+	endif;
+	wp_reset_query(); ?>
+
+	
+	<h2><?php echo $title; ?></h2>
+	<ul>
+		<?php echo $sticky; ?>
+		<?php echo $listing; ?>
+	</ul>
+
+<?php 
+}
+
 
 ?>

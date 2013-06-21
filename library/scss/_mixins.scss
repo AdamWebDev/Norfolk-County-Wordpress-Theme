@@ -14,6 +14,8 @@ A WORD OF WARNING: It's very easy to overdo it here. Be careful and
 remember less is more.
 
 ******************************************************************/
+@import "compass/css3/border-radius";
+
 
 /*********************
 CLEARFIXIN'
@@ -62,7 +64,10 @@ $white:             #fff;
 $bones-pink:        #f01d4f;
 $bones-blue:        #1990db;
 
-$link-color:        $bones-pink;
+$norfolk-green: 	#47736A;
+$norfolk-blue:      #005CFF;
+
+$link-color:        $norfolk-blue;
 $link-hover:        darken($link-color, 9%);
 
 /*
@@ -145,6 +150,12 @@ span.amp {
 	border-color: darken($alert-green, 5%);
 	background: $alert-green;
 }
+
+/*********************
+OTHER VARIABLES
+*********************/
+$default-border-radius: 1em;
+
 
 /*********************
 TRANSITION

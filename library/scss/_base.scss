@@ -150,9 +150,41 @@ h5, .h5 {
 HEADER STYLES
 *********************/
 
-.header {}
+.header { 
+	
+}
+	
 
-	#logo {}
+#logo {
+		@extend .image-replacement;
+		background-color: $norfolk-green;
+		background-image: url(../images/logo.png);
+		background-size: auto 70%;
+		background-position: center 1em;
+		background-repeat: no-repeat;
+		height: 8em;
+		width: auto;
+		display: block;
+		padding: 1em 0 2em;
+		
+	} 
+	.svg #logo {
+		background-image: url(../images/logo.svg);
+	}
+
+	.hero-unit {
+		padding: 60px;
+		margin-bottom: 30px;
+		font-size: 18px;
+		font-weight: 200;
+		line-height: 30px;
+		color: inherit;
+		background-color: #EEE;
+		-webkit-border-radius: 6px;
+		-moz-border-radius: 6px;
+		border-radius: 6px;
+		height: 200px; 
+}
 
 /*********************
 NAVIGATION STYLES
@@ -169,6 +201,7 @@ and more scalable.
 .nav {
 	border: 1px solid #ccc;
 	border-bottom: 0;
+	background-color: $norfolk-green;
 
 	li {
 
@@ -176,8 +209,8 @@ and more scalable.
 			display: block;
 			text-decoration: none;
 			padding: 10px 10px;
-			background-color: #eee;
 			border-bottom: 1px solid #ccc;
+			color: white;
 
 			/*
 			remember this is for mobile ONLY, so there's no need
@@ -237,6 +270,9 @@ and more scalable.
 
 } /* end .nav */
 
+ul.top-nav {
+	margin-top: 0;
+}
 
 /*********************
 POSTS & CONTENT STYLES
