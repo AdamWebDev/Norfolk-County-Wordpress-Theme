@@ -848,8 +848,12 @@ FOOTER STYLES
 
 .footer {
 	clear: both;
+	.wrap {
+		color: $white;
+		background-color: $norfolk-green;
+	}
 }
-
+ 
 	/*
 	if you checked out the link above:
 	http://www.alistapart.com/articles/organizing-mobile/

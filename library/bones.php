@@ -194,7 +194,9 @@ function bones_theme_support() {
 	register_nav_menus(
 		array(
 			'main-cats' => __( 'The Main Categories', 'bonestheme' ),   // main nav in header
-			'top-menu' => __( 'The Top Menu', 'bonestheme' ) // secondary nav in footer
+			'top-menu' => __( 'The Top Menu', 'bonestheme' ), // secondary nav in footer
+			'quick-links' => __( 'Quick Links', 'bonestheme' ),
+			'footer-menu' => __( 'Footer Menu', 'bonestheme' )
 		)
 	);
 } /* end bones theme support */
@@ -381,6 +383,34 @@ function front_page_boxes($post_type,$title,$rssname) {
 	</ul>
 
 <?php 
+}
+
+
+function norfolk_footer_links() {
+	$menus = wp_get_nav_menus();
+	$menu_items = wp_get_nav_menu_items($menus[0]);
+	$i = 0;
+	
+	foreach ($menu_items as $item) { 
+		$class = '';
+		if ($i == 0) $class = 'first';
+		elseif ($i == 3) $class = 'last';
+		
+
+		?>
+
+		<div class="threecol <?php echo $class; ?>">
+			<h3><?php echo $item->title; ?></h3>
+			<ul>
+			<?php 
+				$args = array( 'child_of' => $item->object_id, 'depth' => 2, 'title_li' => '', 'sort_column' => 'post_title' );
+				wp_list_pages( $args );
+			?>
+			</ul>
+		</div>	
+		<?php 
+		$i++;
+	}
 }
 
 
