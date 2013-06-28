@@ -255,6 +255,21 @@ function bones_main_nav_fallback() {
 	) );
 }
 
+function norfolk_quick_links_menu() {
+	wp_nav_menu(array(
+    	'container' => '',                              // remove nav container
+    	'container_class' => 'quick-links-menu clearfix',   // class of container (should you choose to use it)
+    	'menu' => __( 'Quick Links', 'bonestheme' ),   // nav name
+    	'menu_class' => 'nav quick-links clearfix',      // adding custom nav class
+    	'theme_location' => 'quick-links',             // where it's located in the theme
+    	'before' => '',                                 // before the menu
+        'after' => '',                                  // after the menu
+        'link_before' => '',                            // before each link
+        'link_after' => '',                             // after each link
+        'depth' => 0
+	));
+}
+
 // this is the fallback for footer menu
 function bones_footer_links_fallback() {
 	/* you can put a default here if you like */
@@ -412,6 +427,10 @@ function norfolk_footer_links() {
 		$i++;
 	}
 }
+
+function google_custom_search() { ?>
+	<gcse:searchbox-only resultsUrl="<?php echo get_site_url(); ?>/index.php/search" queryParameterName="search">
+<?php }
 
 
 ?>

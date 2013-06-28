@@ -52,15 +52,10 @@
 						<?php norfolk_top_menu(); ?>
 					</nav>
 
-
-
-
-					<div class="hero-unit" role="banner">
-					
+					<div class="search">
+						<?php google_custom_search(); ?>
 					</div>
 
 				</div> <!-- end #inner-header -->
-
-
 
 			</header> <!-- end header -->

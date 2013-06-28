@@ -201,7 +201,7 @@ and more scalable.
 .nav {
 	border: 1px solid #ccc;
 	border-bottom: 0;
-	background-color: $norfolk-green;
+
 
 	li {
 
@@ -210,7 +210,7 @@ and more scalable.
 			text-decoration: none;
 			padding: 10px 10px;
 			border-bottom: 1px solid #ccc;
-			color: white;
+			
 
 			/*
 			remember this is for mobile ONLY, so there's no need
@@ -272,6 +272,10 @@ and more scalable.
 
 ul.top-nav {
 	margin-top: 0;
+	background-color: $norfolk-green;
+	li a {
+	color: $white;
+	}
 }
 
 /*********************
