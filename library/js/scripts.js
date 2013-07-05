@@ -49,6 +49,10 @@ jQuery(document).ready(function($) {
     if (responsive_viewport > 481) {
         
     } /* end larger than 481px */
+
+    if (responsive_viewport < 768) {
+        
+    }
     
     /* if is above or equal to 768px */
     if (responsive_viewport >= 768) {
@@ -64,9 +68,13 @@ jQuery(document).ready(function($) {
     if (responsive_viewport > 1030) {
         
     }
-    
-	
+
 	// add all your scripts here
+
+    $('.front-page-menu .heading').on('click',function() {
+            $(this).next('ul').toggleClass('hidden');
+            return false;
+        });
 	
  
 }); /* end of as page load scripts */

@@ -224,6 +224,24 @@ function bones_main_nav() {
 	));
 } /* end bones main nav */
 
+
+// font page main navigation
+function front_main_nav() {
+	// display the wp3 menu if available
+    wp_nav_menu(array(
+    	'container' => false,                           // remove nav container
+    	'container_class' => 'menu clearfix',           // class of container (should you choose to use it)
+    	'menu' => __( 'The Main Categories', 'bonestheme' ),  // nav name
+    	'menu_class' => 'nav front-page-nav clearfix',         // adding custom nav class
+    	'theme_location' => 'main-cats',                 // where it's located in the theme
+    	'before' => '',                                 // before the menu
+        'after' => '',                                  // after the menu
+        'link_before' => '',                            // before each link
+        'link_after' => '',                             // after each link
+        'depth' => 2
+	));
+} /* end bones main nav */
+
 // the footer menu (should you choose to use one)
 function norfolk_top_menu() {
 	// display the wp3 menu if available
@@ -410,9 +428,7 @@ function norfolk_footer_links() {
 		$class = '';
 		if ($i == 0) $class = 'first';
 		elseif ($i == 3) $class = 'last';
-		
-
-		?>
+	?>
 
 		<div class="threecol <?php echo $class; ?>">
 			<h3><?php echo $item->title; ?></h3>
@@ -427,6 +443,32 @@ function norfolk_footer_links() {
 		$i++;
 	}
 }
+
+function norfolk_front_menu() {
+	$menus = wp_get_nav_menus();
+	$menu_items = wp_get_nav_menu_items($menus[0]);
+	$i = 0;
+	
+	foreach ($menu_items as $item) { 
+		$class = '';
+		if ($i == 0) $class = 'first';
+		elseif ($i == 3) $class = 'last';
+	?>
+
+		<div class="threecol <?php echo $class; ?>">
+			<a href="<?php echo $item->url; ?>" class="heading"><h3><?php echo $item->title; ?></h3></a>
+			<ul class="sub-pages hidden">
+			<?php 
+				$args = array( 'child_of' => $item->object_id, 'depth' => 2, 'title_li' => '', 'sort_column' => 'post_title' );
+				wp_list_pages( $args );
+			?>
+			</ul>
+		</div>	
+		<?php 
+		$i++;
+	}
+}
+
 
 function google_custom_search() { ?>
 	<gcse:searchbox-only resultsUrl="<?php echo get_site_url(); ?>/index.php/search" queryParameterName="search">

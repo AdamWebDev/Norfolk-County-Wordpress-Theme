@@ -9,6 +9,11 @@
 
 						<div id="main" class="twelvecol first clearfix" role="main">
 
+							<div class="front-page-menu row clearfix">
+								
+								<?php norfolk_front_menu(); ?>
+							</div>
+
 							<article id="post-<?php the_ID(); ?>" class="front-page" role="article">
 
 								<section class="entry-content notices clearfix" itemprop="articleBody">
